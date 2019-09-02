@@ -1,0 +1,43 @@
+{
+  "name": "schoolsystem_sample",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "gulp build",
+    "clean": "gulp clean",
+    "watch": "gulp"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.6",
+    "babel-preset-env": "^1.7.0",
+    "browser-sync": "^2.26.7",
+    "del": "^5.0.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^6.1.0",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-ejs": "^4.1.1",
+    "gulp-imagemin": "^6.0.0",
+    "gulp-notify": "^3.2.0",
+    "gulp-plumber": "^1.2.1",
+    "gulp-rename": "^1.4.0",
+    "gulp-replace": "^1.0.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-sass-glob": "^1.1.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "webpack": "^4.39.3",
+    "webpack-stream": "^5.2.1"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "ie >= 11",
+    "Android >= 4"
+  ]
+}
