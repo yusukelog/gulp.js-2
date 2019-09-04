@@ -13,9 +13,13 @@ const rename = require("gulp-rename")//リネーム
 const replace = require("gulp-replace")//置換
 const browserSync = require("browser-sync")//自動リロード
 const del = require("del")//削除
-const webpackStream = require("webpack-stream")
-const webpack = require("webpack")
-const webpackConfig = require("./webpack.config")
+const imagemin = require('gulp-imagemin')//画像圧縮
+const changed = require('gulp-changed') //変更のあったもの(画像)
+const pngquant = require('imagemin-pngquant') //png圧縮
+const mozjpeg = require('imagemin-mozjpeg') //jpg圧縮
+const webpackStream = require("webpack-stream") //webpack-stream　
+const webpack = require("webpack") //webpack
+const webpackConfig = require("./webpack.config") //webpack.configファイル
 
 // paths
 const paths = {
@@ -55,6 +59,31 @@ gulp.task("ejs", () => {
       message: new Date(),
       sound: "Tink",
   }))
+})
+
+//images
+var imgPaths = {
+    srcDir: 'src/images',
+    dstDir: 'dist/images'
+}
+gulp.task('imagemin', () => {
+    var srcGlob = imgPaths.srcDir + '/**/*.+(jpg|jpeg|png|gif)'
+    var dstGlob = imgPaths.dstDir;
+    return gulp.src(srcGlob)
+        .pipe(changed(dstGlob))
+        .pipe(imagemin([
+                pngquant({ quality: '65-80', speed: 1 }),
+                mozjpeg({ quality: 80 }),
+                imagemin.svgo(),
+                imagemin.gifsicle()
+            ]
+        ))
+        .pipe(gulp.dest(dstGlob))
+        .pipe(notify({
+            title: 'img作成',
+            message: new Date(),
+            sound: 'Tink',
+        }))
 })
 
 // server
@@ -101,7 +130,8 @@ gulp.task("default",
 // build
 gulp.task("build",
     gulp.series("clean",
-        gulp.series("sass",
-          gulp.series("webpack",
-            gulp.series("ejs",))))
+        gulp.series("imagemin",
+            gulp.series("sass",
+                gulp.series("webpack",
+                    gulp.series("ejs",)))))
 )
